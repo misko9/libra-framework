@@ -6,28 +6,28 @@ use libra_genesis_tools::{wizard::{GenesisWizard, DEFAULT_DATA_PATH, GITHUB_TOKE
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
 struct GenesisCliArgs {
-    #[clap(subcommand)]
-    command: Option<Sub>,
+  #[clap(subcommand)]
+  command: Option<Sub>,
 
-    /// choose a different home data folder for all node data.
-    /// defaults to $HOME/.libra
-    #[clap(long)]
-    home_dir: Option<PathBuf>,
-    /// optionally provide a github token, otherwise will search in home_dir/github_token.txt
-    #[clap(long)]
-    token_github: Option<String>,
-    /// what are the settings for the genesis repo configs
-    #[clap(short, long)]
-    org_github: String,
-    /// name of the repo
-    #[clap(short, long)]
-    name_github: String,
-    /// uses the local framework build
-    #[clap(short, long)]
-    local_framework: bool,
-    /// path to file for legacy migration file
-    #[clap(short, long)]
-    json_legacy: Option<PathBuf>,
+  /// choose a different home data folder for all node data.
+  /// defaults to $HOME/.libra
+  #[clap(long)]
+  home_dir: Option<PathBuf>,
+  /// optionally provide a github token, otherwise will search in home_dir/github_token.txt
+  #[clap(long)]
+  token_github: Option<String>,
+  /// what are the settings for the genesis repo configs
+  #[clap(short, long)]
+  org_github: String,
+  /// name of the repo
+  #[clap(short, long)]
+  name_github: String,
+  /// uses the local framework build
+  #[clap(short, long)]
+  local_framework: bool,
+  /// path to file for legacy migration file
+  #[clap(short, long)]
+  json_legacy: Option<PathBuf>,
 }
 
 #[derive(Subcommand)]
@@ -71,10 +71,28 @@ fn main() -> anyhow::Result<()>{
             )?;
         }
         Some(Sub::Register { }) => {
-            GenesisWizard::default().start_wizard(cli.home_dir, cli.local_framework, cli.json_legacy, false)?;
+            GenesisWizard::new(
+              cli.org_github, 
+              cli.name_github, 
+              cli.home_dir
+            )
+              .start_wizard(
+                cli.local_framework, 
+                cli.json_legacy, 
+                false
+            )?;
         }
         Some(Sub::Wizard { }) => {
-            GenesisWizard::default().start_wizard(cli.home_dir, cli.local_framework, cli.json_legacy, true)?;
+            GenesisWizard::new(
+              cli.org_github, 
+              cli.name_github, 
+              cli.home_dir
+            )
+              .start_wizard(
+                cli.local_framework, 
+                cli.json_legacy, 
+                true
+            )?;
         }
         _ => {}
     }
