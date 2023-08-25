@@ -9,7 +9,7 @@
 
 
 use hex::FromHex;
-use rand::{rngs::OsRng, Rng};
+//use rand::{rngs::OsRng, Rng};
 use serde::{de::Error as _, Deserialize, Deserializer, Serialize, Serializer};
 use std::{convert::TryFrom, fmt, str::FromStr};
 
@@ -29,11 +29,11 @@ impl LegacyAddress {
     /// Hex address: 0x0
     pub const ZERO: Self = Self([0u8; Self::LENGTH]);
 
-    pub fn random() -> Self {
+    /*pub fn random() -> Self {
         let mut rng = OsRng;
         let buf: [u8; Self::LENGTH] = rng.gen();
         Self(buf)
-    }
+    }*/
 
     pub fn short_str_lossless(&self) -> String {
         let hex_str = hex::encode(&self.0).trim_start_matches('0').to_string();

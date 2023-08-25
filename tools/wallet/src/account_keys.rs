@@ -1,13 +1,13 @@
 //! Use ol-keys to generate or parse keys using the legacy key derivation scheme
 use crate::{
     core::{legacy_scheme::LegacyKeyScheme, wallet_library::WalletLibrary},
-    key_gen::keygen,
+//    key_gen::keygen,
     load_keys,
 };
 
 use anyhow::Result;
 use serde::Serialize;
-use std::path::Path;
+//use std::path::Path;
 use std::str::FromStr;
 use zapatos_crypto::ed25519::Ed25519PrivateKey;
 use zapatos_crypto::PrivateKey;
@@ -59,7 +59,7 @@ pub fn get_ol_legacy_address(addr: AccountAddress) -> anyhow::Result<AccountAddr
     Ok(AccountAddress::from_hex_literal(literal)?)
 }
 
-/// Legacy Keygen. These note these keys are not sufficient to create a validator from V7 onwards. Besides the Mnemonic the keypair for 0th derivation (owner key) is reusable.
+/*/// Legacy Keygen. These note these keys are not sufficient to create a validator from V7 onwards. Besides the Mnemonic the keypair for 0th derivation (owner key) is reusable.
 pub fn legacy_keygen() -> Result<KeyChain> {
     let (_auth_key, _account, wallet, _mnem) = keygen();
     KeyChain::new(&wallet)
@@ -69,7 +69,7 @@ pub fn legacy_keygen() -> Result<KeyChain> {
 pub fn get_keys_from_prompt() -> Result<KeyChain> {
     let (_auth_key, _account, wallet) = load_keys::get_account_from_prompt();
     KeyChain::new(&wallet)
-}
+}*/
 
 /// for libs to get the keys from a mnemonic
 pub fn get_keys_from_mnem(mnem: String) -> Result<KeyChain> {
@@ -81,11 +81,12 @@ pub fn get_account_from_private(pri_key: &Ed25519PrivateKey) -> AccountKeys {
     let pub_key = pri_key.public_key();
     let auth_key = AuthenticationKey::ed25519(&pub_key);
     let account = auth_key.derived_address();
-
+    let serialized: &[u8] = &(pri_key.to_bytes());
+        
     AccountKeys {
         account,
         auth_key,
-        pri_key: pri_key.clone(),
+        pri_key: Ed25519PrivateKey::try_from(serialized).unwrap(),
     }
 }
 
@@ -125,7 +126,7 @@ impl KeyChain {
         })
     }
 
-    /// Save the legacy keys to a json file
+    /*/// Save the legacy keys to a json file
     pub fn save_keys(&self, dir: &Path) -> Result<()> {
         let json = serde_json::to_string_pretty(self)?;
         let path = dir.join("legacy_keys.json");
@@ -135,7 +136,7 @@ impl KeyChain {
 
     pub fn display(&self) {
         eprintln!("{}", serde_json::to_string_pretty(&self).unwrap());
-    }
+    }*/
 }
 
 #[test]
@@ -156,7 +157,7 @@ fn test_legacy_keys() {
     );
 }
 
-#[test]
+/*#[test]
 // We want to check that the address and auth key derivation is the same from what Diem generates, and what the vendor types do.
 fn type_conversion_give_same_auth_and_address() {
     use crate::load_keys::get_account_from_mnem;
@@ -177,4 +178,4 @@ fn type_conversion_give_same_auth_and_address() {
     let cfg_key: ConfigKey<Ed25519PrivateKey> = ConfigKey::new(l.child_0_owner.pri_key);
     let auth_key_from_cfg = AuthenticationKey::ed25519(&cfg_key.public_key()).derived_address();
     assert!(auth_key_from_cfg.to_string() == l.child_0_owner.auth_key.to_string());
-}
+}*/

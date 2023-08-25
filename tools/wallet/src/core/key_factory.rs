@@ -134,7 +134,9 @@ impl ExtendedPrivKey {
 
     /// Get private key
     pub fn get_private_key(&self) -> Ed25519PrivateKey {
-        self.private_key.clone()
+        let serialized: &[u8] = &(self.private_key.to_bytes());
+        Ed25519PrivateKey::try_from(serialized).unwrap()
+        //&self.private_key
     }
 
     /// Compute the authentication key for this account's public key

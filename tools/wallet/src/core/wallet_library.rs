@@ -18,7 +18,7 @@ use super::{
     mnemonic::Mnemonic,
 };
 use anyhow::{bail, Result};
-use rand::{rngs::OsRng, Rng};
+//use rand::{rngs::OsRng, Rng};
 use std::collections::HashMap;
 use zapatos_crypto::ed25519::Ed25519PrivateKey;
 use zapatos_types::{
@@ -34,7 +34,7 @@ pub struct WalletLibrary {
 }
 
 impl WalletLibrary {
-    /// Constructor that generates a Mnemonic from OS randomness and subsequently instantiates an
+    /*/// Constructor that generates a Mnemonic from OS randomness and subsequently instantiates an
     /// empty WalletLibrary from that Mnemonic
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
@@ -42,7 +42,7 @@ impl WalletLibrary {
         let data: [u8; 32] = rng.gen();
         let mnemonic = Mnemonic::new(&data).unwrap();
         Self::new_from_mnemonic(mnemonic)
-    }
+    }*/
 
     /// Constructor that instantiates a new WalletLibrary from Mnemonic
     pub fn new_from_mnemonic(mnemonic: Mnemonic) -> Self {
@@ -130,7 +130,8 @@ impl WalletLibrary {
     /// Return private key for an address in the wallet
     pub fn get_private_key(&self, address: &AccountAddress) -> Result<Ed25519PrivateKey> {
         if let Some(child) = self.addr_map.get(address) {
-            Ok(self.key_factory.private_child(*child)?.get_private_key())
+            let priv_key = self.key_factory.private_child(*child)?.get_private_key();
+            Ok(priv_key)
         } else {
             bail!("missing address")
         }

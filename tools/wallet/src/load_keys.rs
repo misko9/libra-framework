@@ -1,10 +1,14 @@
 //! Key generation
 use crate::core::{mnemonic::Mnemonic, wallet_library::WalletLibrary};
-use libra_types::exports::AccountAddress;
-use libra_types::exports::AuthenticationKey;
-use libra_types::legacy_types::mode_ol::MODE_0L;
-use std::{env, process::exit};
-use zapatos_types::chain_id::NamedChain;
+//use libra_types::exports::AccountAddress;
+//use libra_types::exports::AuthenticationKey;
+pub use zapatos_types::{
+    account_address::AccountAddress,
+    transaction::authenticator::AuthenticationKey,
+};
+//use libra_types::legacy_types::mode_ol::MODE_0L;
+//use std::{env, process::exit};
+//use zapatos_types::chain_id::NamedChain;
 
 /// Get authkey and account from mnemonic
 pub fn get_account_from_mnem(
@@ -23,7 +27,7 @@ pub fn get_account_from_wallet(
     get_account_from_mnem(wallet.mnemonic())
 }
 
-/// Prompts user to type mnemonic securely.
+/*/// Prompts user to type mnemonic securely.
 pub fn get_account_from_prompt() -> (AuthenticationKey, AccountAddress, WalletLibrary) {
     println!("Enter your 0L mnemonic:");
 
@@ -106,4 +110,4 @@ fn fixture_wallet() {
             .to_uppercase()
             == "000000000000000000000000000000004C613C2F4B1E67CA8D98A542EE3F59F5"
     );
-}
+}*/

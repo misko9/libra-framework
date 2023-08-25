@@ -5,31 +5,32 @@
 // Different from vendor, we prioritize making the mnemonic seed known to all users, and then derive all possible keys from there. Currently this applies to ed25519 keys. Vendor's keygen also includes BLS keys, which are used specifically for consensus. As such those are not relevant to end-user account holders.
 
 use crate::account_keys::{
-    get_keys_from_mnem, get_keys_from_prompt, get_ol_legacy_address, legacy_keygen, KeyChain,
+    //get_keys_from_mnem, get_keys_from_prompt, get_ol_legacy_address, legacy_keygen, KeyChain,
+    KeyChain,
 };
-use crate::utils::{
-    check_if_file_exists, create_dir_if_not_exist, dir_default_to_current, prompt_yes, to_yaml,
-    write_to_user_only_file,
-};
+//use crate::utils::{
+//    check_if_file_exists, create_dir_if_not_exist, dir_default_to_current, prompt_yes, to_yaml,
+//    write_to_user_only_file,
+//};
 
 use serde::Serialize;
 
 use anyhow::anyhow;
-use std::path::{Path, PathBuf};
+//use std::path::{Path, PathBuf};
 use zapatos_config::{config::IdentityBlob, keys::ConfigKey};
 use zapatos_crypto::{bls12381, ed25519::Ed25519PrivateKey, traits::PrivateKey, x25519};
 use zapatos_genesis::keys::{PrivateIdentity, PublicIdentity};
 // use zapatos_types::transaction::authenticator::AuthenticationKey;
 
 // These are consistent with Vendor
-const PRIVATE_KEYS_FILE: &str = "private-keys.yaml";
-pub const PUBLIC_KEYS_FILE: &str = "public-keys.yaml";
-pub const VALIDATOR_FILE: &str = "validator-identity.yaml";
-const VFN_FILE: &str = "validator-full-node-identity.yaml";
+//const PRIVATE_KEYS_FILE: &str = "private-keys.yaml";
+//pub const PUBLIC_KEYS_FILE: &str = "public-keys.yaml";
+//pub const VALIDATOR_FILE: &str = "validator-identity.yaml";
+//const VFN_FILE: &str = "validator-full-node-identity.yaml";
 // This is Libra specific
-const USER_FILE: &str = "danger-user-private-keys.yaml";
+//const USER_FILE: &str = "danger-user-private-keys.yaml";
 
-// new keys for user
+/*// new keys for user
 pub fn user_keygen(output_opt: Option<PathBuf>) -> anyhow::Result<()> {
     let user_keys = legacy_keygen()?;
 
@@ -119,7 +120,7 @@ fn save_val_files(
     write_key_file(&output_dir, VFN_FILE, vfn_blob)?;
 
     Ok(())
-}
+}*/
 
 /// Generates objects used for a user in genesis
 pub fn generate_key_objects_from_legacy(
