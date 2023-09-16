@@ -14,11 +14,11 @@ use mirai_annotations::*;
 
 use sha2::{Digest, Sha256};
 
-use std::{
+/*use std::{
     fs::{self, File},
     io::Write,
     path::Path,
-};
+};*/
 
 // #[cfg(test)]
 // use rand::rngs::OsRng;
@@ -84,7 +84,7 @@ impl Mnemonic {
         Ok(Mnemonic(mnemonic))
     }
 
-    /// Generate mnemonic from entropy byte-array.
+    /*/// Generate mnemonic from entropy byte-array.
     pub fn new(entropy: &[u8]) -> Result<Mnemonic> {
         let len = entropy.len();
         if !(16..=32).contains(&len) || len % 4 != 0 {
@@ -128,7 +128,7 @@ impl Mnemonic {
             return Self::from(&mnemonic_string[..]);
         }
         bail!("Input file for mnemonic backup does not exist")
-    }
+    }*/
 }
 
 /// BitReader reads data from a byte slice at the granularity of 11 bits.
@@ -452,7 +452,7 @@ const WORDS: [&str; 2048] = [
 //     assert_eq!(mnemonic.to_string(), other_mnemonic.to_string());
 // }
 
-#[test]
+/*#[test]
 fn test_deterministic_mnemonic() {
     let zeros_entropy: [u8; 32] = [0; 32];
     let ones_entropy: [u8; 32] = [1; 32];
@@ -646,4 +646,4 @@ fn test_vectors_bip39<'a>() -> Vec<Test<'a>> {
             mnemonic: "void come effort suffer camp survey warrior heavy shoot primary clutch crush open amazing screen patrol group space point ten exist slush involve unfold",
         },
     ]
-}
+}*/

@@ -1,8 +1,8 @@
-use libra_framework::release::ReleaseTarget;
-use std::{env::current_dir, path::PathBuf};
+//use libra_framework::release::ReleaseTarget;
+//use std::{env::current_dir, path::PathBuf};
 
 fn main() {
-    // Set the below variable to skip the building step. This might be useful if the build
+    /*// Set the below variable to skip the building step. This might be useful if the build
     // is broken so it can be debugged with the old outdated artifacts.
     if std::env::var("LIBRA_BUILD_FRAMEWORK").is_ok() {
         let current_dir = current_dir().expect("Should be able to get current dir");
@@ -27,5 +27,5 @@ fn main() {
                 ),
             )
             .expect("release build failed");
-    }
+    }*/
 }

@@ -20,7 +20,7 @@ use super::{
 use anyhow::{bail, Result};
 use diem_crypto::ed25519::Ed25519PrivateKey;
 use diem_types::{account_address::AccountAddress, transaction::authenticator::AuthenticationKey};
-use rand::{rngs::OsRng, Rng};
+//use rand::{rngs::OsRng, Rng};
 use std::collections::HashMap;
 
 /// WalletLibrary contains all the information needed to recreate a particular wallet
@@ -32,7 +32,7 @@ pub struct WalletLibrary {
 }
 
 impl WalletLibrary {
-    /// Constructor that generates a Mnemonic from OS randomness and subsequently instantiates an
+    /*/// Constructor that generates a Mnemonic from OS randomness and subsequently instantiates an
     /// empty WalletLibrary from that Mnemonic
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
@@ -40,7 +40,7 @@ impl WalletLibrary {
         let data: [u8; 32] = rng.gen();
         let mnemonic = Mnemonic::new(&data).unwrap();
         Self::new_from_mnemonic(mnemonic)
-    }
+    }*/
 
     /// Constructor that instantiates a new WalletLibrary from Mnemonic
     pub fn new_from_mnemonic(mnemonic: Mnemonic) -> Self {

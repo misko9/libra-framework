@@ -1,7 +1,7 @@
 //! Use ol-keys to generate or parse keys using the legacy key derivation scheme
 use crate::{
     core::{legacy_scheme::LegacyKeyScheme, wallet_library::WalletLibrary},
-    key_gen::keygen,
+//    key_gen::keygen,
     load_keys,
 };
 
@@ -11,7 +11,7 @@ use diem_crypto::PrivateKey;
 use diem_types::account_address::AccountAddress;
 use diem_types::transaction::authenticator::AuthenticationKey;
 use serde::Serialize;
-use std::path::Path;
+//use std::path::Path;
 use std::str::FromStr;
 
 #[derive(Serialize)]
@@ -59,7 +59,7 @@ pub fn get_ol_legacy_address(addr: AccountAddress) -> anyhow::Result<AccountAddr
     Ok(AccountAddress::from_hex_literal(literal)?)
 }
 
-/// Derive keys from a mnemonic in the 0L scheme
+/*/// Derive keys from a mnemonic in the 0L scheme
 // NOTE: these keys are not sufficient to create a validator from V7 onwards. There are BLS keys needed in additiont o Ed25519
 pub fn legacy_keygen(danger_print: bool) -> Result<KeyChain> {
     let (auth_key, account, wallet, mnem) = keygen();
@@ -103,7 +103,7 @@ pub fn legacy_keygen(danger_print: bool) -> Result<KeyChain> {
 pub fn get_keys_from_prompt() -> Result<KeyChain> {
     let (_auth_key, _account, wallet) = load_keys::get_account_from_prompt();
     KeyChain::new(&wallet)
-}
+}*/
 
 /// for libs to get the keys from a mnemonic
 pub fn get_keys_from_mnem(mnem: String) -> Result<KeyChain> {
@@ -159,7 +159,7 @@ impl KeyChain {
         })
     }
 
-    /// Save the legacy keys to a json file
+    /*/// Save the legacy keys to a json file
     pub fn save_keys(&self, dir: &Path) -> Result<()> {
         let json = serde_json::to_string_pretty(self)?;
         let path = dir.join("legacy_keys.json");
@@ -169,10 +169,10 @@ impl KeyChain {
 
     pub fn display(&self) {
         eprintln!("{}", serde_json::to_string_pretty(&self).unwrap());
-    }
+    }*/
 }
 
-#[test]
+/*#[test]
 fn test_legacy_keys() {
     let alice_mnem = "talent sunset lizard pill fame nuclear spy noodle basket okay critic grow sleep legend hurry pitch blanket clerk impose rough degree sock insane purse";
 
@@ -211,4 +211,4 @@ fn type_conversion_give_same_auth_and_address() {
     let cfg_key: ConfigKey<Ed25519PrivateKey> = ConfigKey::new(l.child_0_owner.pri_key);
     let auth_key_from_cfg = AuthenticationKey::ed25519(&cfg_key.public_key()).derived_address();
     assert!(auth_key_from_cfg.to_string() == l.child_0_owner.auth_key.to_string());
-}
+}*/

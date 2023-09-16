@@ -14,7 +14,7 @@ rust-version = { workspace = true }
 
 [dependencies]
 # Note the generated SDK code uses hard coded `diemtypes`
-diem-types = { git = "https://github.com/0LNetworkCommunity/diem.git", branch = "release"}
+diem-types = { git = "https://github.com/misko9/diem.git", branch = "wasm"}
 
 # libra-framework = { workspace = true }
 bcs = { workspace = true }
@@ -25,7 +25,7 @@ once_cell = { workspace = true }
 
 
 [build-dependencies]
-libra-framework = { workspace = true }
+#libra-framework = { workspace = true }
 
 # [features]
 # default = []
