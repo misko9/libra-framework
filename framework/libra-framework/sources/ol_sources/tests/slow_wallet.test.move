@@ -87,7 +87,7 @@ module ol_framework::test_slow_wallet {
 
 
   #[test(root = @ol_framework, alice = @0x123, bob = @0x456)]
-  fun test_transfer_unlocked_happy(root: signer, alice: signer) {
+  fun test_transfer_unlocked_happy(root: signer, alice: signer, bob: signer) {
     mock::ol_test_genesis(&root);
     let mint_cap = libra_coin::extract_mint_cap(&root);
 
@@ -96,8 +96,10 @@ module ol_framework::test_slow_wallet {
 
     // create alice account
     ol_account::create_account(&root, @0x123);
+    ol_account::create_account(&root, @0x456);
 
     slow_wallet::set_slow(&alice);
+    slow_wallet::set_slow(&bob);
 
     assert!(slow_wallet::is_slow(@0x123), 7357000);
     assert!(slow_wallet::unlocked_amount(@0x123) == 0, 735701);
@@ -119,6 +121,7 @@ module ol_framework::test_slow_wallet {
     let b_balance = coin::balance<LibraCoin>(@0x456);
     assert!(b_balance == transfer_amount, 735704);
     assert!(slow_wallet::unlocked_amount(@0x123) == (alice_init_balance - transfer_amount), 735705);
+    assert!(slow_wallet::unlocked_amount(@0x456) == 2*transfer_amount, 735716);
     assert!(slow_wallet::unlocked_amount(@0x456) == transfer_amount, 735706);
 
     // alice should show a slow wallet transfer amount equal to sent;
